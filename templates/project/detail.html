@@ -29,8 +29,19 @@
                             <h6>{{ project.project_name }}</h6>
                         </div>
                         <div class="col-md-6">
-                            <p class="text-muted">Project Domain</p>
+                            <p class="text-muted">Domain Name</p>
                             <h6>{{ project.project_domain }}</h6>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="text-muted">Domain Expiry Date</p>
+                            <h6>{% if project.domain_expiry_date %}{{ project.domain_expiry_date|date:"d M Y" }}{% else %}-{% endif %}</h6>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted">Domain URL</p>
+                            <h6>{% if project.domain_url %}<pre class="mb-0">{{ project.domain_url }}</pre>{% else %}-{% endif %}</h6>
                         </div>
                     </div>
 
@@ -62,7 +73,7 @@
                         <div class="col-md-6">
                             <p class="text-muted">Status</p>
                             <h6>
-                                <span class="badge {% if project.status == 'Active' %}bg-success{% elif project.status == 'Completed' %}bg-info{% elif project.status == 'On Hold' %}bg-warning{% else %}bg-secondary{% endif %}">
+                                <span class="badge {% if project.status == 'Live' %}bg-success{% elif project.status == 'Not Live' %}bg-secondary{% elif project.status == 'Active' %}bg-success{% elif project.status == 'Completed' %}bg-info{% elif project.status == 'On Hold' %}bg-warning{% else %}bg-secondary{% endif %}">
                                     {{ project.status }}
                                 </span>
                             </h6>

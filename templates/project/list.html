@@ -48,7 +48,7 @@
                     <tr>
                         <th>S.No</th>
                         <th>Project Name</th>
-                        <th>Domain</th>
+                        <th>Domain Name</th>
                         <th>Project Amount</th>
                         <th>Total Amount</th>
                         <th>Paid Amount</th>
@@ -73,7 +73,7 @@
                                 </strong>
                             </td>
                             <td>
-                                <span class="badge {% if project.status == 'Active' %}bg-success{% elif project.status == 'Completed' %}bg-info{% elif project.status == 'On Hold' %}bg-warning{% else %}bg-secondary{% endif %}">
+                                <span class="badge {% if project.status == 'Live' %}bg-success{% elif project.status == 'Not Live' %}bg-secondary{% elif project.status == 'Active' %}bg-success{% elif project.status == 'Completed' %}bg-info{% elif project.status == 'On Hold' %}bg-warning{% else %}bg-secondary{% endif %}">
                                     {{ project.status }}
                                 </span>
                             </td>

@@ -38,10 +38,31 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="{{ form.project_domain.id_for_label }}" class="form-label">Project Domain *</label>
+                                    <label for="{{ form.project_domain.id_for_label }}" class="form-label">Domain Name *</label>
                                     {{ form.project_domain }}
                                     {% if form.project_domain.errors %}
                                         <small class="text-danger">{{ form.project_domain.errors.0 }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.domain_expiry_date.id_for_label }}" class="form-label">Domain Expiry Date</label>
+                                    {{ form.domain_expiry_date }}
+                                    {% if form.domain_expiry_date.errors %}
+                                        <small class="text-danger">{{ form.domain_expiry_date.errors.0 }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.domain_url.id_for_label }}" class="form-label">Domain URL</label>
+                                    {{ form.domain_url }}
+                                    {% if form.domain_url.errors %}
+                                        <small class="text-danger">{{ form.domain_url.errors.0 }}</small>
                                     {% endif %}
                                 </div>
                             </div>

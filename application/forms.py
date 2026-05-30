@@ -61,17 +61,32 @@ class EmployeeForm(forms.ModelForm):
 
 
 class ProjectForm(forms.ModelForm):
+    status = forms.ChoiceField(
+        choices=[('Live', 'Live'), ('Not Live', 'Not Live')],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
     class Meta:
         model = Project
-        fields = ['project_name', 'project_domain', 'project_amount', 'total_amount', 'paid_amount', 'status']
+        fields = ['project_name', 'project_domain', 'domain_expiry_date', 'domain_url', 'project_amount', 'total_amount', 'paid_amount', 'status']
         widgets = {
             'project_name': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter project name'
             }),
-            'project_domain': forms.TextInput(attrs={
+            'project_domain': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter project domain'
+                'placeholder': 'Enter domain name',
+                'rows': 2
+            }),
+            'domain_expiry_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'domain_url': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter domain URL',
+                'rows': 2
             }),
             'project_amount': forms.NumberInput(attrs={
                 'class': 'form-control',

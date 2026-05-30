@@ -27,6 +27,8 @@ class Employee(models.Model):
 
 class Project(models.Model):
     STATUS_CHOICES = [
+        ('Live', 'Live'),
+        ('Not Live', 'Not Live'),
         ('Active', 'Active'),
         ('Inactive', 'Inactive'),
         ('On Hold', 'On Hold'),
@@ -35,6 +37,8 @@ class Project(models.Model):
     
     project_name = models.CharField(max_length=200)
     project_domain = models.CharField(max_length=100)
+    domain_expiry_date = models.DateField(null=True, blank=True)
+    domain_url = models.TextField(blank=True)
     project_amount = models.DecimalField(max_digits=12, decimal_places=2)
     total_amount = models.DecimalField(max_digits=12, decimal_places=2)
     paid_amount = models.DecimalField(max_digits=12, decimal_places=2)
