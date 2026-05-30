@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ project.project_name }} - Project Details{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="page-title">Project Details</h1>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{% url 'project_list' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-briefcase"></i> {{ project.project_name }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="text-muted">Project Name</p>
+                            <h6>{{ project.project_name }}</h6>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted">Project Domain</p>
+                            <h6>{{ project.project_domain }}</h6>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="text-muted">Project Amount</p>
+                            <h6>₹{{ project.project_amount|floatformat:2 }}</h6>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted">Total Amount</p>
+                            <h6>₹{{ project.total_amount|floatformat:2 }}</h6>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="text-muted">Paid Amount</p>
+                            <h6>₹{{ project.paid_amount|floatformat:2 }}</h6>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted">Balance Amount</p>
+                            <h6 class="{% if project.balance_amount < 0 %}text-danger{% elif project.balance_amount == 0 %}text-success{% else %}text-warning{% endif %}">
+                                ₹{{ project.balance_amount|floatformat:2 }}
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="text-muted">Status</p>
+                            <h6>
+                                <span class="badge {% if project.status == 'Active' %}bg-success{% elif project.status == 'Completed' %}bg-info{% elif project.status == 'On Hold' %}bg-warning{% else %}bg-secondary{% endif %}">
+                                    {{ project.status }}
+                                </span>
+                            </h6>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted">Last Updated</p>
+                            <h6>{{ project.updated_at|date:"d M Y, H:i" }}</h6>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Progress Bar -->
+                    {% if project.total_amount > 0 %}
+                    <div class="mb-3">
+                        <p class="text-muted">Payment Progress</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" 
+                                 style="width: {% widthratio project.paid_amount project.total_amount 100 %}%" 
+                                 aria-valuenow="{{ project.paid_amount }}" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="{{ project.total_amount }}">
+                                {% widthratio project.paid_amount project.total_amount 100 %}%
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <a href="{% url 'project_update' project.id %}" class="btn btn-warning me-2">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form method="post" action="{% url 'project_delete' project.id %}" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this project?')">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

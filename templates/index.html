@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center mt-5">
+                <h1 class="display-4">Welcome to Admin Dashboard</h1>
+                <p class="lead">Management System for Employees and Projects</p>
+                {% if user.is_authenticated %}
+                    <div class="mt-4">
+                        <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+                    </div>
+                {% else %}
+                    <div class="mt-4">
+                        <a href="{% url 'login' %}" class="btn btn-primary btn-lg me-2">Login</a>
+                        <a href="{% url 'register' %}" class="btn btn-success btn-lg">Register</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
